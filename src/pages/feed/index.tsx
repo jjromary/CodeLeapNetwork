@@ -1,5 +1,9 @@
+import { Container } from "./styles"
+
 export function Feed() {
   return (
-    <h1>Você está na List post!</h1>
+    <Container>
+      <h1>Você está na List post!</h1>
+    </Container>
   )
 }
