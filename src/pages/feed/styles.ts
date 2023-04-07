@@ -1,13 +1,17 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  width: 100%;
   max-width: 800px;
-  height: 100vh;
+  height: auto;
   margin: 0 auto;
   display: flex;
+  padding-bottom: 1.5rem;
   flex-direction: column;
   align-items: center;
   background-color: ${(props) => props.theme["white"]};
+  gap: 1.5rem;
+  overflow: auto;
 `;
 
 export const Header = styled.header`
@@ -26,12 +30,28 @@ export const Header = styled.header`
   margin-bottom: 1.5rem;
 `;
 
-export const Content = styled.div`
+export const ContentCreatePost = styled.div`
   width: 100%;
-  max-width: 752px;
+  max-width: 704px;
+  max-height: 286px;
+  display: flex;
+  padding: 1.5rem;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+
+  /* margin-top: 1.5rem; */
+  /* justify-content: center; */
+  /* gap: 1.5rem; */
+`;
+
+export const ContentPostList = styled.div`
+  width: 100%;
+  display: flex;
+  height: auto;
+  flex-direction: column;
   align-items: center;
-  max-width: 752px;
+  gap: 1.5rem;
 `;
 

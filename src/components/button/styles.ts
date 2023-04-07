@@ -9,7 +9,7 @@ export const Container = styled.div<StylesButtonProps>`
   width: 100%;
   display: flex;
   justify-content: right;
-  margin-bottom: 1.5rem 0;
+  margin: 1.5rem 0;
 
   button {
     all: unset;
@@ -21,7 +21,6 @@ export const Container = styled.div<StylesButtonProps>`
     font-style: normal;
     font-weight: 700;
     text-align: center;
-    margin-top: 1rem;
   }
 `;
 

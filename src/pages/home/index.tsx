@@ -1,5 +1,5 @@
 import { Button } from "../../components/button"
-import { FieldForm } from "../../components/FieldForm"
+import { FieldForm } from "../../components/fieldForm"
 import { Title } from "../../components/title"
 import { Container, Content } from "./styles"
 

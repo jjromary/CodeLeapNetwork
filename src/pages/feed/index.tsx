@@ -1,8 +1,9 @@
-import { FieldForm } from "../../components/FieldForm"
 import { BoxModel } from "../../components/boxModel"
 import { Button } from "../../components/button"
+import { FieldForm } from "../../components/fieldForm"
+import { PostCard } from "../../components/postCard"
 import { Title } from "../../components/title"
-import { Container, Content, Header } from "./styles"
+import { Container, ContentCreatePost, ContentPostList, Header } from "./styles"
 
 export default function Feed() {
   return (
@@ -11,11 +12,12 @@ export default function Feed() {
         CodeLeap Network
       </Header>
 
-      <Content>
-        <BoxModel
-          width="100%"
-          height="334px"
-        >
+      <BoxModel
+        width="94%"
+        height="334px"
+      >
+        <ContentCreatePost>
+
           <Title
             title="What's on your mind?"
           />
@@ -33,15 +35,36 @@ export default function Feed() {
             height="74px"
           />
 
-
           <Button
             nameButton="Create"
             width="120px"
             height="32px"
           />
+        </ContentCreatePost>
 
+      </BoxModel>
+
+      <ContentPostList>
+        <BoxModel
+          width="94%"
+          height="316px"
+        >
+          <PostCard />
         </BoxModel>
-      </Content>
+        <BoxModel
+          width="94%"
+          height="316px"
+        >
+          <PostCard />
+        </BoxModel>
+        <BoxModel
+          width="94%"
+          height="316px"
+        >
+          <PostCard />
+        </BoxModel>
+      </ContentPostList>
+
 
     </Container>
   )
