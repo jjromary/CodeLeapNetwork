@@ -1,10 +1,16 @@
 import { Container } from "./styles";
 
-export function Button() {
+interface ButtonProps {
+  nameButton: string;
+  width: string;
+  height: string;
+}
+
+export function Button({ nameButton, height, width }: ButtonProps) {
   return (
-    <Container>
+    <Container height={height} width={width}>
       <button>
-        ENTER
+        {nameButton}
       </button>
     </Container>
   )

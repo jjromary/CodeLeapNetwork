@@ -1,15 +1,19 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
-  width: 90%;
+interface StylesButtonProps {
+  width: string;
+  height: string;
+}
+
+export const Container = styled.div<StylesButtonProps>`
+  width: 95%;
   display: flex;
-  align-items: center;
   justify-content: right;
 
   button {
     all: unset;
-    width: 111px;
-    height: 32px;
+    width: ${(props) => props.width};
+    height: ${(props) => props.height};
     border-radius: 8px;
     background-color: ${(props) => props.theme["blue-500"]};
     color: ${(props) => props.theme["white"]};

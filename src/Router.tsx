@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { Feed } from "./pages/feed";
+import Feed from "./pages/feed";
 import Home from "./pages/home";
 
 export function Router() {

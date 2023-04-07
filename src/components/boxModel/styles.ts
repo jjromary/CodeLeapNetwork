@@ -1,19 +1,22 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
-  width: 90%;
-  height: 205px;
+interface StylesBoxModelProps {
+  width: string;
+  height: string;
+}
+
+export const Container = styled.div<StylesBoxModelProps>`
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
   background-color: ${(props) => props.theme["white"]};
   border-radius: 16px;
+  border: 1px solid ${(props) => props.theme["gray-300"]};
   padding: 1.5rem 0 0 1.5rem;
+  margin: 0 auto;
 
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   justify-content: flex-start;
-
-  @media (min-width: 550px) {
-    width: 500px;
-  }
+  align-items: flex-start;
 `;
 
