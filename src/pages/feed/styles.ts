@@ -8,8 +8,6 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   background-color: ${(props) => props.theme["white"]};
-
-  border: 2px solid green;
 `;
 
 export const Header = styled.header`
@@ -26,16 +24,14 @@ export const Header = styled.header`
   justify-content: left;
   padding-left: 2.313rem;
   margin-bottom: 1.5rem;
-  border: 2px solid red;
 `;
 
 export const Content = styled.div`
-  width: 95%;
+  width: 100%;
+  max-width: 752px;
   display: flex;
   flex-direction: column;
   align-items: center;
   max-width: 752px;
-  margin: 0 24px;
-  border: 2px solid blue;
 `;
 

@@ -15,7 +15,7 @@ export const Content = styled.div`
   background-color: ${(props) => props.theme["white"]};
   border-radius: 16px;
   border: 1px solid ${(props) => props.theme["gray-300"]};
-  padding: 1.5rem 0 0 1.5rem;
+  padding: 1.5rem 1.5rem 0 1.5rem;
 
   display: flex;
   flex-direction: column;

@@ -6,9 +6,10 @@ interface StylesButtonProps {
 }
 
 export const Container = styled.div<StylesButtonProps>`
-  width: 95%;
+  width: 100%;
   display: flex;
   justify-content: right;
+  margin-bottom: 1.5rem 0;
 
   button {
     all: unset;

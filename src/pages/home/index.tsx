@@ -19,7 +19,7 @@ export default function Home() {
         />
         <Button
           nameButton="ENTER"
-          width="11px"
+          width="111px"
           height="32px"
         />
 

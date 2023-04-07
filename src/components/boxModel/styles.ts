@@ -11,8 +11,9 @@ export const Container = styled.div<StylesBoxModelProps>`
   background-color: ${(props) => props.theme["white"]};
   border-radius: 16px;
   border: 1px solid ${(props) => props.theme["gray-300"]};
-  padding: 1.5rem 0 0 1.5rem;
+  padding: 1.5rem 1.5rem 0 1.5rem;
   margin: 0 auto;
+  margin: 0 1.5rem;
 
   display: flex;
   flex-direction: column;

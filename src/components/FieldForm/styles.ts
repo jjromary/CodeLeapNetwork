@@ -5,7 +5,7 @@ interface InputProps {
 }
 
 export const Container = styled.div<InputProps>`
-  width: 95%;
+  width: 100%;
   margin-top: 1.5rem;
 
   label {
