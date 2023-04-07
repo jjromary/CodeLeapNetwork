@@ -1,20 +1,16 @@
+import { Button } from "../button";
 import { TextInput } from "../textInput";
+import { Title } from "../title";
 import { Container } from "./styles";
 
 export function BoxModel() {
   return (
     <Container>
-      <span>
-        Welcome to CodeLeap network!
-      </span>
+      <Title />
 
       <TextInput />
 
-      <div>
-        <button>
-          ENTER
-        </button>
-      </div>
+      <Button />
 
     </Container>
   )

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 500px;
+  width: 90%;
   height: 205px;
   background-color: ${(props) => props.theme["white"]};
   border-radius: 16px;
@@ -11,5 +11,9 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
+
+  @media (min-width: 550px) {
+    width: 500px;
+  }
 `;
 
