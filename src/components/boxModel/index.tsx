@@ -1,3 +1,4 @@
+import { TextInput } from "../textInput";
 import { Container } from "./styles";
 
 export function BoxModel() {
@@ -7,10 +8,13 @@ export function BoxModel() {
         Welcome to CodeLeap network!
       </span>
 
-      <label>
-        Please enter your username
-      </label>
-      <input placeholder="John doe" />
+      <TextInput />
+
+      <div>
+        <button>
+          ENTER
+        </button>
+      </div>
 
     </Container>
   )

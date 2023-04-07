@@ -11,19 +11,5 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-
-  input {
-    margin-top: 1.5rem;
-    width: 452px;
-    height: 32px;
-    border-radius: 8px;
-
-    border: 1px solid ${(props) => props.theme["gray-700"]};
-
-    ::placeholder {
-      padding-left: 0.7rem;
-      font-size: 0.875rem;
-    }
-  }
 `;
 
