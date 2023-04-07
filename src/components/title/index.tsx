@@ -1,9 +1,13 @@
 import { Container } from "./styles";
 
-export function Title() {
+interface TitleProps {
+  title: string;
+}
+
+export function Title({ title }: TitleProps) {
   return (
     <Container>
-      Welcome to CodeLeap network!
+      {title}
     </Container>
   )
 }

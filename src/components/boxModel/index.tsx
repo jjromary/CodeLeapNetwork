@@ -1,17 +1,16 @@
-import { Button } from "../button";
-import { TextInput } from "../textInput";
-import { Title } from "../title";
+import { ReactNode } from "react";
 import { Container } from "./styles";
 
-export function BoxModel() {
+interface BoxModelProps {
+  children: ReactNode;
+  width: string;
+  height: string;
+}
+
+export function BoxModel({ children, height, width }: BoxModelProps) {
   return (
-    <Container>
-      <Title />
-
-      <TextInput />
-
-      <Button />
-
+    <Container height={height} width={width}>
+      {children}
     </Container>
   )
 }
