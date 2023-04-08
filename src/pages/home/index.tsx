@@ -1,9 +1,16 @@
-import { Button } from "../../components/button"
-import { FieldForm } from "../../components/fieldForm"
-import { Title } from "../../components/title"
-import { Container, Content } from "./styles"
+import { useNavigate } from "react-router-dom";
+import { Button } from "../../components/button";
+import { FieldForm } from "../../components/fieldForm";
+import { Title } from "../../components/title";
+import { Container, Content } from "./styles";
 
 export default function Home() {
+  const navigate = useNavigate();
+
+  function handleCreateUser() {
+    navigate("/feed");
+  }
+
   return (
     <Container>
       <Content>
@@ -23,6 +30,7 @@ export default function Home() {
           height="32px"
           actionButton="create"
           type="button"
+          onClick={handleCreateUser}
         />
 
       </Content>
