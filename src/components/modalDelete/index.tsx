@@ -8,7 +8,6 @@ interface ModalDelteProps {
   onRequestClose: () => void;
 }
 
-
 Modal.setAppElement('#root')
 
 export function ModalDelete({ isOpen, onRequestClose }: ModalDelteProps) {

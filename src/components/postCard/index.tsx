@@ -2,12 +2,15 @@ import { useState } from 'react';
 import deleteIcon from '../../assets/deleteIcon.svg';
 import editIcon from '../../assets/editIcon.svg';
 import { ModalDelete } from '../modalDelete';
+import { ModalEdit } from '../modalEdit';
 import { Title } from "../title";
 import { Container, ContentDetails, ContentIcons, ContentPost, ContentTitle } from "./styles";
 
 
 export function PostCard() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+
 
   function handleOpenDeleteModal() {
     setIsDeleteModalOpen(true)
@@ -15,6 +18,14 @@ export function PostCard() {
 
   function handleCloseDeleteModal() {
     setIsDeleteModalOpen(false)
+  }
+
+  function handleOpenEditModal() {
+    setIsEditModalOpen(true)
+  }
+
+  function handleCloseEditModal() {
+    setIsEditModalOpen(false)
   }
 
   return (
@@ -27,12 +38,16 @@ export function PostCard() {
           <button tabIndex={0} type='button' onClick={handleOpenDeleteModal}>
             <img src={deleteIcon} alt="Icon Delete" />
           </button>
-          <button tabIndex={0} type='button'>
+          <button tabIndex={0} type='button' onClick={handleOpenEditModal}>
             <img src={editIcon} alt="Icon Edit" />
           </button>
           <ModalDelete
             isOpen={isDeleteModalOpen}
             onRequestClose={handleCloseDeleteModal}
+          />
+          <ModalEdit
+            isOpen={isEditModalOpen}
+            onRequestClose={handleCloseEditModal}
           />
         </ContentIcons>
       </ContentTitle>

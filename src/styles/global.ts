@@ -47,5 +47,26 @@ export const GlobalStyle = createGlobalStyle`
     background: ${(props) => props.theme["white"]};
     border-radius: 16px;
   }
+
+  .react-modal-edit-overlay {
+    background: rgba(119,119,119, 0.8);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .react-modal-edit-content {
+    width: 100%;
+    max-width: 660px; 
+    height: 334px;
+    margin: 0 1.5rem;
+    background: ${(props) => props.theme["white"]};
+    border-radius: 16px;
+  }
 `;
 
