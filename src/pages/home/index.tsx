@@ -21,6 +21,8 @@ export default function Home() {
           nameButton="ENTER"
           width="111px"
           height="32px"
+          actionButton="create"
+          type="button"
         />
 
       </Content>
