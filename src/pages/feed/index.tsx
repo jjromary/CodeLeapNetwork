@@ -1,11 +1,37 @@
+import { useEffect, useState } from "react"
 import { BoxModel } from "../../components/boxModel"
 import { Button } from "../../components/button"
 import { FieldForm } from "../../components/fieldForm"
 import { PostCard } from "../../components/postCard"
 import { Title } from "../../components/title"
+import { api } from "../../lib/axios"
 import { Container, ContentCreatePost, ContentPostList, Header } from "./styles"
 
-export default function Feed() {
+interface Posts {
+  id: number;
+  username: string;
+  created_datetime: Date;
+  title: string;
+  content: string;
+}
+
+export default function Feed({ id, username, created_datetime, title, content }: Posts) {
+  const [posts, setPosts] = useState<Posts[]>([])
+
+  const loadposts = async () => {
+    const response = await api.get(`/`, {
+      params: {
+        limit: 15
+      }
+    })
+    setPosts(response.data.results)
+  }
+  console.log(posts)
+
+  useEffect(() => {
+    loadposts()
+  }, [])
+
   return (
     <Container>
       <Header>
@@ -47,24 +73,20 @@ export default function Feed() {
       </BoxModel>
 
       <ContentPostList>
-        <BoxModel
-          width="94%"
-          height="316px"
-        >
-          <PostCard />
-        </BoxModel>
-        <BoxModel
-          width="94%"
-          height="316px"
-        >
-          <PostCard />
-        </BoxModel>
-        <BoxModel
-          width="94%"
-          height="316px"
-        >
-          <PostCard />
-        </BoxModel>
+
+        {posts && posts.map((post) => {
+          return (
+            <PostCard
+              key={post.id}
+              id={post.id}
+              username={post.username}
+              created_datetime={post.created_datetime}
+              title={post.title}
+              content={post.content}
+            />
+          )
+        })}
+
       </ContentPostList>
 
 

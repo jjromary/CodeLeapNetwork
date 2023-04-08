@@ -1,16 +1,26 @@
+import moment from 'moment';
 import { useState } from 'react';
 import deleteIcon from '../../assets/deleteIcon.svg';
 import editIcon from '../../assets/editIcon.svg';
+import { BoxModel } from '../boxModel';
 import { ModalDelete } from '../modalDelete';
 import { ModalEdit } from '../modalEdit';
 import { Title } from "../title";
 import { Container, ContentDetails, ContentIcons, ContentPost, ContentTitle } from "./styles";
 
+interface PostCardProps {
+  id: number;
+  username: string;
+  created_datetime: Date;
+  title: string;
+  content: string;
+}
 
-export function PostCard() {
+export function PostCard({ id, username, created_datetime, title, content }: PostCardProps) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
 
+  const datePost = moment(created_datetime).fromNow()
 
   function handleOpenDeleteModal() {
     setIsDeleteModalOpen(true)
@@ -29,43 +39,49 @@ export function PostCard() {
   }
 
   return (
-    <Container>
-      <ContentTitle>
-        <Title
-          title="My First Post at CodeLeap Network!"
-        />
-        <ContentIcons>
-          <button tabIndex={0} type='button' onClick={handleOpenDeleteModal}>
-            <img src={deleteIcon} alt="Icon Delete" />
-          </button>
-          <button tabIndex={0} type='button' onClick={handleOpenEditModal}>
-            <img src={editIcon} alt="Icon Edit" />
-          </button>
-          <ModalDelete
-            isOpen={isDeleteModalOpen}
-            onRequestClose={handleCloseDeleteModal}
+    <BoxModel
+      width="94%"
+      height="316px"
+    >
+
+      <Container>
+        <ContentTitle>
+          <Title
+            title={title}
           />
-          <ModalEdit
-            isOpen={isEditModalOpen}
-            onRequestClose={handleCloseEditModal}
-          />
-        </ContentIcons>
-      </ContentTitle>
+          <ContentIcons>
+            <button tabIndex={0} type='button' onClick={handleOpenDeleteModal}>
+              <img src={deleteIcon} alt="Icon Delete" />
+            </button>
+            <button tabIndex={0} type='button' onClick={handleOpenEditModal}>
+              <img src={editIcon} alt="Icon Edit" />
+            </button>
+            <ModalDelete
+              isOpen={isDeleteModalOpen}
+              onRequestClose={handleCloseDeleteModal}
+            />
+            <ModalEdit
+              isOpen={isEditModalOpen}
+              onRequestClose={handleCloseEditModal}
+            />
+          </ContentIcons>
+        </ContentTitle>
 
-      <ContentDetails>
-        <span className='author'>
-          @JoseRomary
-        </span>
-        <span>
-          25 minutes ago
-        </span>
-      </ContentDetails>
+        <ContentDetails>
+          <span className='author'>
+            @{username}
+          </span>
+          <span>
+            {datePost}
+          </span>
+        </ContentDetails>
 
-      <ContentPost>
-        Curabitur suscipit suscipit tellus. Phasellus consectetuer vestibulum elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Maecenas egestas arcu quis ligula mattis placerat. Duis vel nibh at velit scelerisque suscipit.
-        Duis lobortis massa imperdiet quam. Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc, eu sollicitudin urna dolor sagittis lacus. Fusce a quam. Nullam vel sem. Nullam cursus lacinia erat.
-      </ContentPost>
+        <ContentPost>
+          {content}
+        </ContentPost>
 
-    </Container>
+      </Container>
+    </BoxModel>
+
   )
 }
