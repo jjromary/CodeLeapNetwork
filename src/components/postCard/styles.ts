@@ -6,8 +6,6 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* border: 1px solid ${(props) => props.theme["gray-300"]};
-  border-radius: 16px 16px 0 0; */
 `;
 
 export const ContentTitle = styled.div`
@@ -32,6 +30,11 @@ export const ContentIcons = styled.div`
   button {
     all: unset;
     cursor: pointer;
+
+    :focus {
+      outline: 0;
+      box-shadow: 0 0 0 2px ${(props) => props.theme["white"]};
+    }
   }
 `;
 

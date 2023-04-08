@@ -39,6 +39,8 @@ export default function Feed() {
             nameButton="Create"
             width="120px"
             height="32px"
+            actionButton="create"
+            type="submit"
           />
         </ContentCreatePost>
 
