@@ -1,5 +1,7 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
+import * as zod from 'zod'
 import { BoxModel } from "../../components/boxModel"
 import { Button } from "../../components/button"
 import { PostCard } from "../../components/postCard"
@@ -15,18 +17,25 @@ interface Posts {
   content: string;
 }
 
+const newPostValidationSchema = zod.object({
+  title: zod.string().min(1, 'Please enter at least 3 characters!'),
+  content: zod.string().min(3, 'Please enter at least 3 characters!')
+})
+
+type NewPostFormData = zod.infer<typeof newPostValidationSchema>
+
 export default function Feed() {
   const [posts, setPosts] = useState<Posts[]>([])
-  const [titleNewPost, setTitleNewPost] = useState('')
-  const [contentNewPost, setContentNewPost] = useState('')
+  const [updatedPost, setUpdatedPost] = useState(false);
   const loadUserName = localStorage.getItem('user')
 
-  const { register, handleSubmit } = useForm()
-
-  function handleCreateNewPost(data: any) {
-    console.log(data)
-  }
-
+  const { register, handleSubmit } = useForm<NewPostFormData>({
+    resolver: zodResolver(newPostValidationSchema),
+    defaultValues: {
+      title: '',
+      content: '',
+    }
+  })
 
   const loadposts = async () => {
     const response = await api.get(`/`, {
@@ -35,21 +44,32 @@ export default function Feed() {
       }
     })
     setPosts(response.data.results)
+    setTimeout(() => {
+      setUpdatedPost(false);
+    }, 500);
   }
 
-  const createPost = async () => {
+  function handleCreateNewPost(data: NewPostFormData) {
+    createPost(data.title, data.content)
+    console.log(data)
+  }
+
+
+
+  const createPost = async (title: string, content: string) => {
     api.post(`/`, {
-      username: "user",
-      title: titleNewPost,
-      content: contentNewPost,
+      username: loadUserName,
+      title: title,
+      content: content,
     })
+    setUpdatedPost(true);
   }
 
   useEffect(() => {
     loadposts()
-  }, [])
+  }, [updatedPost])
 
-  console.log(posts)
+  console.log(updatedPost)
   return (
     <Container>
       <Header>
