@@ -59,10 +59,14 @@ export function PostCard({ id, username, created_datetime, title, content }: Pos
             <ModalDelete
               isOpen={isDeleteModalOpen}
               onRequestClose={handleCloseDeleteModal}
+              idPostCard={id}
+              username={username}
             />
             <ModalEdit
               isOpen={isEditModalOpen}
               onRequestClose={handleCloseEditModal}
+              idPostCard={id}
+              username={username}
             />
           </ContentIcons>
         </ContentTitle>

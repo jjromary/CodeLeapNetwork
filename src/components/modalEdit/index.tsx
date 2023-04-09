@@ -1,5 +1,8 @@
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import Modal from 'react-modal';
+import * as zod from 'zod';
+import { api } from '../../lib/axios';
 import { Button } from '../button';
 import { Title } from '../title';
 import { Container, ContainerFildsForm, ContainerInput, ContainerLabel, ContainerTextArea, ContentActions, ContentButton } from './styles';
@@ -7,16 +10,47 @@ import { Container, ContainerFildsForm, ContainerInput, ContainerLabel, Containe
 interface ModalEditProps {
   isOpen: boolean;
   onRequestClose: () => void;
+  idPostCard: number;
+  username: string;
 }
+
+const editPostValidationSchema = zod.object({
+  titleEdit: zod.string().min(1, 'Please enter at least 3 characters!'),
+  contentEdit: zod.string().min(3, 'Please enter at least 3 characters!')
+})
+
+type NewPostFormData = zod.infer<typeof editPostValidationSchema>
 
 Modal.setAppElement('#root')
 
-export function ModalEdit({ isOpen, onRequestClose }: ModalEditProps) {
+export function ModalEdit({ isOpen, onRequestClose, idPostCard, username }: ModalEditProps) {
+  const loadUserName = localStorage.getItem('user')
 
-  const { register, handleSubmit } = useForm()
 
-  function handleEditPost(data: any) {
+  const { register, handleSubmit } = useForm<NewPostFormData>({
+    resolver: zodResolver(editPostValidationSchema),
+    defaultValues: {
+      titleEdit: '',
+      contentEdit: '',
+    }
+  })
+
+  const handleEditPost = (data: NewPostFormData) => {
+    if (loadUserName !== username) {
+      return false
+    }
+    editPost(data.titleEdit, data.contentEdit)
     console.log(data)
+  }
+
+  const editPost = async (titleEdit: string, contentEdit: string) => {
+    await api.patch(`/${idPostCard}/`, {
+      title: titleEdit,
+      content: contentEdit,
+    })
+    // setTimeout(() => {
+    //   setUpdatedPost(false);
+    // }, 500);
   }
 
   return (

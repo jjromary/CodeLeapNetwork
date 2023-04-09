@@ -49,7 +49,7 @@ export default function Feed() {
     }, 500);
   }
 
-  function handleCreateNewPost(data: NewPostFormData) {
+  const handleCreateNewPost = (data: NewPostFormData) => {
     createPost(data.title, data.content)
     console.log(data)
   }
@@ -57,7 +57,7 @@ export default function Feed() {
 
 
   const createPost = async (title: string, content: string) => {
-    api.post(`/`, {
+    await api.post(`/`, {
       username: loadUserName,
       title: title,
       content: content,
