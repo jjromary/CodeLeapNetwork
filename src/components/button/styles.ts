@@ -10,7 +10,7 @@ export const Container = styled.div<StylesButtonProps>`
   width: 100%;
   display: flex;
   justify-content: right;
-  margin: 1.5rem 0;
+  margin: 1rem 0;
 
   button {
     all: unset;

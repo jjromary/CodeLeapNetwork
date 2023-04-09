@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
+import { useForm } from "react-hook-form"
 import { BoxModel } from "../../components/boxModel"
 import { Button } from "../../components/button"
-import { FieldForm } from "../../components/fieldForm"
 import { PostCard } from "../../components/postCard"
 import { Title } from "../../components/title"
 import { api } from "../../lib/axios"
-import { Container, ContentCreatePost, ContentPostList, Header } from "./styles"
+import { Container, ContainerFildsForm, ContainerInput, ContainerLabel, ContainerTextArea, ContentCreatePost, ContentPostList, Header } from "./styles"
 
 interface Posts {
   id: number;
@@ -15,8 +15,18 @@ interface Posts {
   content: string;
 }
 
-export default function Feed({ id, username, created_datetime, title, content }: Posts) {
+export default function Feed() {
   const [posts, setPosts] = useState<Posts[]>([])
+  const [titleNewPost, setTitleNewPost] = useState('')
+  const [contentNewPost, setContentNewPost] = useState('')
+  const loadUserName = localStorage.getItem('user')
+
+  const { register, handleSubmit } = useForm()
+
+  function handleCreateNewPost(data: any) {
+    console.log(data)
+  }
+
 
   const loadposts = async () => {
     const response = await api.get(`/`, {
@@ -26,12 +36,20 @@ export default function Feed({ id, username, created_datetime, title, content }:
     })
     setPosts(response.data.results)
   }
-  console.log(posts)
+
+  const createPost = async () => {
+    api.post(`/`, {
+      username: "user",
+      title: titleNewPost,
+      content: contentNewPost,
+    })
+  }
 
   useEffect(() => {
     loadposts()
   }, [])
 
+  console.log(posts)
   return (
     <Container>
       <Header>
@@ -43,31 +61,43 @@ export default function Feed({ id, username, created_datetime, title, content }:
         height="334px"
       >
         <ContentCreatePost>
-
           <Title
-            title="What's on your mind?"
-          />
-          <FieldForm
-            type="input"
-            placeholder="Title"
-            label="Hello world"
-            height="32px"
+            title="What’s on your mind?"
           />
 
-          <FieldForm
-            type="text-area"
-            placeholder="Content"
-            label="Content here"
-            height="74px"
-          />
+          <ContainerFildsForm>
 
-          <Button
-            nameButton="Create"
-            width="120px"
-            height="32px"
-            actionButton="create"
-            type="submit"
-          />
+            <form onSubmit={handleSubmit(handleCreateNewPost)}>
+              <ContainerLabel>
+                Title
+              </ContainerLabel>
+              <ContainerInput
+                placeholder='Hello World'
+                height='32px'
+                type="text"
+                {...register('title')}
+              />
+
+              <ContainerLabel>
+                Content
+              </ContainerLabel>
+              <ContainerTextArea
+                placeholder="Content Here"
+                heightTextArea="74px"
+                {...register('content')}
+
+              />
+              <Button
+                nameButton="Create"
+                width="120px"
+                height="32px"
+                actionButton="create"
+                type="submit"
+              />
+
+            </form>
+
+          </ContainerFildsForm>
         </ContentCreatePost>
 
       </BoxModel>

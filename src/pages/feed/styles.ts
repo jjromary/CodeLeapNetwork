@@ -1,5 +1,14 @@
 import styled from "styled-components";
 
+interface InputProps {
+  height: string;
+}
+
+interface InputTextAreaProps {
+  placeholder: string;
+  heightTextArea: string;
+}
+
 export const Container = styled.div`
   width: 100%;
   max-width: 800px;
@@ -32,7 +41,7 @@ export const Header = styled.header`
 
 export const ContentCreatePost = styled.div`
   width: 100%;
-  max-width: 704px;
+  /* max-width: 704px; */
   max-height: 286px;
   display: flex;
   padding: 1.5rem;
@@ -40,10 +49,6 @@ export const ContentCreatePost = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-
-  /* margin-top: 1.5rem; */
-  /* justify-content: center; */
-  /* gap: 1.5rem; */
 `;
 
 export const ContentPostList = styled.div`
@@ -53,5 +58,67 @@ export const ContentPostList = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 1.5rem;
+`;
+
+export const ContainerFildsForm = styled.div`
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;
+  max-height: 240px;
+
+  label {
+    font-size: 0.875rem;
+
+    @media (min-width: 425px) {
+      font-size: 1rem;
+    }
+  }
+`;
+
+export const ContainerLabel = styled.label`
+  font-size: 0.875rem;
+  margin-top: 1.5rem;
+  @media (min-width: 425px) {
+    font-size: 1rem;
+  }
+`;
+
+export const ContainerInput = styled.input<InputProps>`
+  width: 100%;
+  height: ${(props) => props.height};
+  border-radius: 8px;
+  margin: 0.5rem 0 1.5rem 0;
+  padding-left: 0.7rem;
+  border: 1px solid ${(props) => props.theme["gray-700"]};
+
+  ::placeholder {
+    font-size: 0.75rem;
+    color: ${(props) => props.theme["gray-300"]};
+
+    @media (min-width: 425px) {
+      font-size: 0.875rem;
+    }
+  }
+`;
+
+export const ContainerTextArea = styled.textarea<InputTextAreaProps>`
+  width: 100%;
+  height: ${(props) => props.heightTextArea};
+  border-radius: 8px;
+  margin-top: 0.5rem;
+  padding: 0.5rem 0 0 0.7rem;
+  border: 1px solid ${(props) => props.theme["gray-700"]};
+  resize: none;
+
+  ::placeholder {
+    font-size: 0.75rem;
+    color: ${(props) => props.theme["gray-300"]};
+
+    @media (min-width: 425px) {
+      font-size: 0.875rem;
+    }
+  }
 `;
 

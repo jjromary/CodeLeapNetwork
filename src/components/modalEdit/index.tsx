@@ -1,8 +1,8 @@
+import { useForm } from 'react-hook-form';
 import Modal from 'react-modal';
 import { Button } from '../button';
-import { FieldForm } from '../fieldForm';
 import { Title } from '../title';
-import { Container, ContentActions, ContentButton } from './styles';
+import { Container, ContainerFildsForm, ContainerInput, ContainerLabel, ContainerTextArea, ContentActions, ContentButton } from './styles';
 
 interface ModalEditProps {
   isOpen: boolean;
@@ -12,57 +12,74 @@ interface ModalEditProps {
 Modal.setAppElement('#root')
 
 export function ModalEdit({ isOpen, onRequestClose }: ModalEditProps) {
+
+  const { register, handleSubmit } = useForm()
+
+  function handleEditPost(data: any) {
+    console.log(data)
+  }
+
   return (
-    <Modal
-      isOpen={isOpen}
-      onRequestClose={onRequestClose}
-      overlayClassName="react-modal-edit-overlay"
-      className="react-modal-edit-content"
-    >
+    <form onSubmit={handleSubmit(handleEditPost)}>
+      <Modal
+        isOpen={isOpen}
+        onRequestClose={onRequestClose}
+        overlayClassName="react-modal-edit-overlay"
+        className="react-modal-edit-content"
+      >
 
-      <Container>
+        <Container>
 
-        <Title
-          title="Edit item"
-        />
-        <FieldForm
-          type="input"
-          placeholder="Title"
-          label="Title"
-          height="32px"
-        />
+          <Title
+            title="Edit item"
+          />
+          <ContainerFildsForm>
 
-        <FieldForm
-          type="text-area"
-          placeholder="Content"
-          label="Content  "
-          height="74px"
-        />
-
-        <ContentButton>
-          <ContentActions>
-
-            <Button
-              nameButton="cancel"
-              width="120px"
-              height="32px"
-              actionButton="cancel"
-              type="button"
-              onClick={onRequestClose}
+            <ContainerLabel>
+              Title
+            </ContainerLabel>
+            <ContainerInput
+              placeholder='Hello World'
+              height='32px'
+              type="text"
+              {...register('titleEdit')}
             />
 
-            <Button
-              nameButton="Save"
-              width="120px"
-              height="32px"
-              actionButton="edit"
-              type="submit"
+            <ContainerLabel>
+              Content
+            </ContainerLabel>
+            <ContainerTextArea
+              placeholder="Content Here"
+              heightTextArea="74px"
+              {...register('contentEdit')}
+
             />
-          </ContentActions>
+            <ContentButton>
+              <ContentActions>
 
-        </ContentButton>
-      </Container>
+                <Button
+                  nameButton="cancel"
+                  width="120px"
+                  height="32px"
+                  actionButton="cancel"
+                  type="button"
+                  onClick={onRequestClose}
+                />
 
-    </Modal>
+                <Button
+                  nameButton="Save"
+                  width="120px"
+                  height="32px"
+                  actionButton="edit"
+                  type="submit"
+                />
+              </ContentActions>
+            </ContentButton>
+
+          </ContainerFildsForm>
+        </Container>
+
+      </Modal>
+    </form>
   )
 }
