@@ -6,7 +6,7 @@ import * as zod from 'zod';
 import { api } from '../../lib/axios';
 import { Button } from '../button';
 import { Title } from '../title';
-import { Container, ContainerFildsForm, ContainerInput, ContainerLabel, ContainerTextArea, ContentActions, ContentButton } from './styles';
+import { Container, ContainerFildsForm, ContainerInput, ContainerLabel, ContainerTextArea, ContentActions, ContentButton, ErroMessage } from './styles';
 
 interface ModalEditProps {
   isOpen: boolean;
@@ -24,10 +24,10 @@ type NewPostFormData = zod.infer<typeof editPostValidationSchema>
 
 Modal.setAppElement('#root')
 
-export function ModalEdit({ isOpen, onRequestClose, idPostCard, username }: ModalEditProps) {
+export function ModalEdit({ isOpen, onRequestClose, idPostCard }: ModalEditProps) {
   const loadUserName = localStorage.getItem('user')
 
-  const { register, handleSubmit } = useForm<NewPostFormData>({
+  const { register, handleSubmit, formState } = useForm<NewPostFormData>({
     resolver: zodResolver(editPostValidationSchema),
     defaultValues: {
       titleEdit: '',
@@ -36,10 +36,6 @@ export function ModalEdit({ isOpen, onRequestClose, idPostCard, username }: Moda
   })
 
   const handleEditPost = (data: NewPostFormData) => {
-    if (loadUserName !== username) {
-      toast.error("You're not author this post!")
-      return false
-    }
     editPost(data.titleEdit, data.contentEdit)
     toast.success("Post edited!")
     onRequestClose()
@@ -71,6 +67,8 @@ export function ModalEdit({ isOpen, onRequestClose, idPostCard, username }: Moda
             <ContainerLabel>
               Title
             </ContainerLabel>
+            <ErroMessage>{formState.errors?.titleEdit?.message}</ErroMessage>
+
             <ContainerInput
               placeholder='Hello World'
               height='32px'
@@ -81,6 +79,7 @@ export function ModalEdit({ isOpen, onRequestClose, idPostCard, username }: Moda
             <ContainerLabel>
               Content
             </ContainerLabel>
+            <ErroMessage>{formState.errors?.contentEdit?.message}</ErroMessage>
             <ContainerTextArea
               placeholder="Content Here"
               heightTextArea="74px"

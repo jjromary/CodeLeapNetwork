@@ -15,18 +15,13 @@ interface ModalDelteProps {
 
 Modal.setAppElement('#root')
 
-export function ModalDelete({ isOpen, onRequestClose, idPostCard, username }: ModalDelteProps) {
-  const loadUserName = localStorage.getItem('user')
+export function ModalDelete({ isOpen, onRequestClose, idPostCard }: ModalDelteProps) {
 
   const { handleSubmit } = useForm({
 
   })
 
   const handleDeletePost = (data: any) => {
-    if (loadUserName !== username) {
-      toast.error("You're not author this post!")
-      return false
-    }
     deletePost()
     toast.success("Post deleted!")
     onRequestClose()
