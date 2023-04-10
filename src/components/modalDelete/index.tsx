@@ -1,5 +1,6 @@
 import { useForm } from 'react-hook-form';
 import Modal from 'react-modal';
+import { toast } from 'react-toastify';
 import { api } from '../../lib/axios';
 import { Button } from '../button';
 import { Title } from '../title';
@@ -23,12 +24,12 @@ export function ModalDelete({ isOpen, onRequestClose, idPostCard, username }: Mo
 
   const handleDeletePost = (data: any) => {
     if (loadUserName !== username) {
-      console.log("user diferent of author")
+      toast.error("You're not author this post!")
       return false
     }
     deletePost()
+    toast.success("Post deleted!")
     onRequestClose()
-    console.log(data)
   }
 
   const deletePost = async () => {

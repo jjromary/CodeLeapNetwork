@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import Modal from 'react-modal';
+import { toast } from 'react-toastify';
 import * as zod from 'zod';
 import { api } from '../../lib/axios';
 import { Button } from '../button';
@@ -36,11 +37,12 @@ export function ModalEdit({ isOpen, onRequestClose, idPostCard, username }: Moda
 
   const handleEditPost = (data: NewPostFormData) => {
     if (loadUserName !== username) {
+      toast.error("You're not author this post!")
       return false
     }
     editPost(data.titleEdit, data.contentEdit)
+    toast.success("Post edited!")
     onRequestClose()
-    console.log(data)
   }
 
   const editPost = async (titleEdit: string, contentEdit: string) => {

@@ -2,13 +2,14 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import * as zod from 'zod'
 import { BoxModel } from "../../components/boxModel"
 import { Button } from "../../components/button"
 import { PostCard } from "../../components/postCard"
 import { Title } from "../../components/title"
 import { api } from "../../lib/axios"
-import { Container, ContainerFildsForm, ContainerInput, ContainerLabel, ContainerTextArea, ContentCreatePost, ContentPostList, Header, Warning } from "./styles"
+import { Container, ContainerFildsForm, ContainerInput, ContainerLabel, ContainerTextArea, ContentCreatePost, ContentPostList, ErroMessage, Header, Warning } from "./styles"
 
 interface Posts {
   id: number;
@@ -31,7 +32,7 @@ export default function Feed() {
   const loadUserName = localStorage.getItem('user')
   const navigate = useNavigate();
 
-  const { register, handleSubmit } = useForm<NewPostFormData>({
+  const { register, handleSubmit, formState } = useForm<NewPostFormData>({
     resolver: zodResolver(newPostValidationSchema),
     defaultValues: {
       title: '',
@@ -42,10 +43,12 @@ export default function Feed() {
   const handleRedirectToLogin = () => {
     navigate("/");
   }
-
   const handleLogout = () => {
-    localStorage.removeItem('user')
-    navigate("/");
+    if (window.confirm("Confirm logout?")) {
+      localStorage.removeItem('user')
+      toast.success("Logout confirmed!")
+      navigate("/");
+    } else { }
   }
 
   const loadposts = async () => {
@@ -62,10 +65,8 @@ export default function Feed() {
 
   const handleCreateNewPost = (data: NewPostFormData) => {
     createPost(data.title, data.content)
-    console.log(data)
+    toast.success("Post created!")
   }
-
-
 
   const createPost = async (title: string, content: string) => {
     await api.post(`/`, {
@@ -80,7 +81,6 @@ export default function Feed() {
     loadposts()
   }, [updatedPost])
 
-  console.log(updatedPost)
   return (
     <Container>
       {!!loadUserName === true ?
@@ -93,8 +93,7 @@ export default function Feed() {
               height="32px"
               actionButton="login"
               type="button"
-              onClick={handleLogout}
-            />
+              onClick={handleLogout} />
           </Header>
           <BoxModel
             width="94%"
@@ -103,27 +102,30 @@ export default function Feed() {
             <ContentCreatePost>
               <Title
                 title="What’s on your mind?" />
-
-
               <ContainerFildsForm>
 
                 <form onSubmit={handleSubmit(handleCreateNewPost)}>
                   <ContainerLabel>
                     Title
                   </ContainerLabel>
+                  <ErroMessage>{formState.errors?.title?.message}</ErroMessage>
                   <ContainerInput
                     placeholder='Hello World'
                     height='32px'
                     type="text"
-                    {...register('title')} />
+                    {...register('title')}
+                  />
 
                   <ContainerLabel>
                     Content
                   </ContainerLabel>
+                  <ErroMessage>{formState.errors?.content?.message}</ErroMessage>
                   <ContainerTextArea
                     placeholder="Content Here"
                     heightTextArea="74px"
-                    {...register('content')} />
+                    {...register('content')}
+                  />
+
                   <Button
                     nameButton="Create"
                     width="120px"
@@ -156,17 +158,14 @@ export default function Feed() {
         ) : (
           <>
             <Header>
-
               CodeLeap Network
-
               <Button
                 nameButton="Login"
                 width="111px"
                 height="32px"
                 actionButton="login"
                 type="button"
-                onClick={handleRedirectToLogin}
-              />
+                onClick={handleRedirectToLogin} />
             </Header>
             <BoxModel
               width="94%"
@@ -177,8 +176,7 @@ export default function Feed() {
               </Warning>
             </BoxModel>
           </>
-        )
-      }
+        )}
 
     </Container>
 
