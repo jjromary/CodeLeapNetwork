@@ -46,6 +46,11 @@ export const Container = styled.div<StylesButtonProps>`
     text-align: center;
     cursor: pointer;
 
+    :hover {
+      transition: 0.2s;
+      opacity: 50%;
+    }
+
     :focus {
       outline: 0;
       box-shadow: 0 0 0 2px ${(props) => props.theme["blue-500"]};
