@@ -136,3 +136,29 @@ export const ErroMessage = styled.div`
   color: ${(props) => props.theme["red-500"]};
 `;
 
+export const ButtonBackToTop = styled.a`
+  width: 120px;
+  height: 32px;
+  position: fixed;
+  bottom: 20px;
+  left: 10px;
+  color: ${(props) => props.theme["white"]};
+  background: ${(props) => props.theme["black"]};
+  text-decoration: none;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  :hover {
+    transition: 0.2s;
+    opacity: 80%;
+  }
+
+  :focus {
+    outline: 0;
+    box-shadow: 0 0 0 2px ${(props) => props.theme["blue-500"]};
+  }
+`;
+
