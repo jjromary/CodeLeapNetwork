@@ -25,7 +25,6 @@ type NewPostFormData = zod.infer<typeof editPostValidationSchema>
 Modal.setAppElement('#root')
 
 export function ModalEdit({ isOpen, onRequestClose, idPostCard }: ModalEditProps) {
-  const loadUserName = localStorage.getItem('user')
 
   const { register, handleSubmit, formState } = useForm<NewPostFormData>({
     resolver: zodResolver(editPostValidationSchema),

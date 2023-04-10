@@ -48,12 +48,16 @@ export const Container = styled.div<StylesButtonProps>`
 
     :hover {
       transition: 0.2s;
-      opacity: 50%;
+      opacity: 80%;
     }
 
     :focus {
       outline: 0;
-      box-shadow: 0 0 0 2px ${(props) => props.theme["blue-500"]};
+      box-shadow: 0 0 0 2px
+        ${(props) =>
+          props.actionButton === "login"
+            ? props.theme["white"]
+            : props.theme["blue-500"]};
     }
   }
 `;

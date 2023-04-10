@@ -6,6 +6,7 @@ import { toast } from 'react-toastify'
 import * as zod from 'zod'
 import { BoxModel } from "../../components/boxModel"
 import { Button } from "../../components/button"
+import Loading from '../../components/loading'
 import { PostCard } from "../../components/postCard"
 import { Title } from "../../components/title"
 import { api } from "../../lib/axios"
@@ -29,20 +30,33 @@ type NewPostFormData = zod.infer<typeof newPostValidationSchema>
 export default function Feed() {
   const [posts, setPosts] = useState<Posts[]>([])
   const [updatedPost, setUpdatedPost] = useState(false);
+  const [totalPost, setTotalPost] = useState(Number)
+  const [isfinalPost, setIsFinalPost] = useState(false)
+
+  const [limitPage, setLimitPage] = useState(10)
+  const [isLoading, setIsLoading] = useState(true)
+
   const loadUserName = localStorage.getItem('user')
   const navigate = useNavigate();
 
-  const { register, handleSubmit, formState } = useForm<NewPostFormData>({
-    resolver: zodResolver(newPostValidationSchema),
-    defaultValues: {
-      title: '',
-      content: '',
-    }
-  })
+  //Infinity scroll
+  useEffect(() => {
+    const intersactionObserver = new IntersectionObserver((entries) => {
+
+      if (entries.some((entry) => entry.isIntersecting)) {
+        setLimitPage(limitPageInsiderState => limitPageInsiderState + 3)
+      }
+    });
+
+    intersactionObserver.observe(document.querySelector('#limiter')!)
+
+    return () => intersactionObserver.disconnect()
+  }, [])
 
   const handleRedirectToLogin = () => {
     navigate("/");
   }
+
   const handleLogout = () => {
     if (window.confirm("Confirm logout?")) {
       localStorage.removeItem('user')
@@ -51,13 +65,23 @@ export default function Feed() {
     } else { }
   }
 
+  const verifyFinalList = () => {
+    if (posts.length === totalPost) {
+      setIsFinalPost(true)
+    } else {
+      setIsFinalPost(false)
+    }
+  }
+
   const loadposts = async () => {
     const response = await api.get(`/`, {
       params: {
-        limit: 15
-      }
+        limit: limitPage,
+      },
     })
     setPosts(response.data.results)
+    setTotalPost(response.data.count)
+    verifyFinalList()
     setTimeout(() => {
       setUpdatedPost(false);
     }, 500);
@@ -77,9 +101,19 @@ export default function Feed() {
     setUpdatedPost(true);
   }
 
+  //start postlist in feed and updated list when new post been created
   useEffect(() => {
     loadposts()
-  }, [updatedPost])
+    setIsLoading(false)
+  }, [updatedPost, limitPage])
+
+  const { register, handleSubmit, formState } = useForm<NewPostFormData>({
+    resolver: zodResolver(newPostValidationSchema),
+    defaultValues: {
+      title: '',
+      content: '',
+    }
+  })
 
   return (
     <Container>
@@ -153,6 +187,14 @@ export default function Feed() {
             })}
 
           </ContentPostList>
+
+          {isfinalPost ?
+            "There are no more posts"
+            : ''}
+
+          {/* Limit for start infinite scroll */}
+          {!isLoading && !isfinalPost && <Loading />}
+          <div id='limiter' style={{ marginTop: '1rem' }} />
         </>
 
         ) : (

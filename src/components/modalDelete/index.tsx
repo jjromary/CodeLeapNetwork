@@ -21,7 +21,7 @@ export function ModalDelete({ isOpen, onRequestClose, idPostCard }: ModalDeltePr
 
   })
 
-  const handleDeletePost = (data: any) => {
+  const handleDeletePost = () => {
     deletePost()
     toast.success("Post deleted!")
     onRequestClose()
