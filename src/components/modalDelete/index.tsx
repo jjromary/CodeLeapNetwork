@@ -1,5 +1,6 @@
 import { useForm } from 'react-hook-form';
 import Modal from 'react-modal';
+import { toast } from 'react-toastify';
 import { api } from '../../lib/axios';
 import { Button } from '../button';
 import { Title } from '../title';
@@ -14,20 +15,16 @@ interface ModalDelteProps {
 
 Modal.setAppElement('#root')
 
-export function ModalDelete({ isOpen, onRequestClose, idPostCard, username }: ModalDelteProps) {
-  const loadUserName = localStorage.getItem('user')
+export function ModalDelete({ isOpen, onRequestClose, idPostCard }: ModalDelteProps) {
 
   const { handleSubmit } = useForm({
 
   })
 
-  const handleDeletePost = (data: any) => {
-    if (loadUserName !== username) {
-      console.log("user diferent of author")
-      return false
-    }
+  const handleDeletePost = () => {
     deletePost()
-    console.log(data)
+    toast.success("Post deleted!")
+    onRequestClose()
   }
 
   const deletePost = async () => {

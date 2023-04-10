@@ -96,3 +96,8 @@ export const ContentActions = styled.div`
   justify-content: flex-end;
 `;
 
+export const ErroMessage = styled.div`
+  font-size: 0.75rem;
+  color: ${(props) => props.theme["red-500"]};
+`;
+

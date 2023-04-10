@@ -1,5 +1,6 @@
 import moment from 'moment';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 import deleteIcon from '../../assets/deleteIcon.svg';
 import editIcon from '../../assets/editIcon.svg';
 import { BoxModel } from '../boxModel';
@@ -20,9 +21,16 @@ export function PostCard({ id, username, created_datetime, title, content }: Pos
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
 
+  const loadUserName = localStorage.getItem('user')
+
+
   const datePost = moment(created_datetime).fromNow()
 
   function handleOpenDeleteModal() {
+    if (loadUserName !== username) {
+      toast.error("You're not author this post!")
+      return false
+    }
     setIsDeleteModalOpen(true)
   }
 
@@ -31,6 +39,10 @@ export function PostCard({ id, username, created_datetime, title, content }: Pos
   }
 
   function handleOpenEditModal() {
+    if (loadUserName !== username) {
+      toast.error("You're not author this post!")
+      return false
+    }
     setIsEditModalOpen(true)
   }
 

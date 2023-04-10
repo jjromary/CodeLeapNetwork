@@ -4,7 +4,7 @@ interface ButtonProps {
   nameButton: string;
   width: string;
   height: string;
-  actionButton: "create" | "cancel" | "delete" | "edit";
+  actionButton: "create" | "cancel" | "delete" | "edit" | "login";
   type: "button" | "submit" | "reset";
   onClick?: () => void;
 }

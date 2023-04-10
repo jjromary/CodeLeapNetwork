@@ -34,8 +34,8 @@ export const Header = styled.header`
 
   display: flex;
   align-items: center;
-  justify-content: left;
-  padding-left: 2.313rem;
+  justify-content: space-between;
+  padding: 0 2.313rem;
   margin-bottom: 1.5rem;
 `;
 
@@ -120,5 +120,19 @@ export const ContainerTextArea = styled.textarea<InputTextAreaProps>`
       font-size: 0.875rem;
     }
   }
+`;
+
+export const Warning = styled.div`
+  width: 100%;
+  height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const ErroMessage = styled.div`
+  font-size: 0.75rem;
+  color: ${(props) => props.theme["red-500"]};
 `;
 

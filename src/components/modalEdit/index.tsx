@@ -1,11 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import Modal from 'react-modal';
+import { toast } from 'react-toastify';
 import * as zod from 'zod';
 import { api } from '../../lib/axios';
 import { Button } from '../button';
 import { Title } from '../title';
-import { Container, ContainerFildsForm, ContainerInput, ContainerLabel, ContainerTextArea, ContentActions, ContentButton } from './styles';
+import { Container, ContainerFildsForm, ContainerInput, ContainerLabel, ContainerTextArea, ContentActions, ContentButton, ErroMessage } from './styles';
 
 interface ModalEditProps {
   isOpen: boolean;
@@ -23,11 +24,9 @@ type NewPostFormData = zod.infer<typeof editPostValidationSchema>
 
 Modal.setAppElement('#root')
 
-export function ModalEdit({ isOpen, onRequestClose, idPostCard, username }: ModalEditProps) {
-  const loadUserName = localStorage.getItem('user')
+export function ModalEdit({ isOpen, onRequestClose, idPostCard }: ModalEditProps) {
 
-
-  const { register, handleSubmit } = useForm<NewPostFormData>({
+  const { register, handleSubmit, formState } = useForm<NewPostFormData>({
     resolver: zodResolver(editPostValidationSchema),
     defaultValues: {
       titleEdit: '',
@@ -36,11 +35,9 @@ export function ModalEdit({ isOpen, onRequestClose, idPostCard, username }: Moda
   })
 
   const handleEditPost = (data: NewPostFormData) => {
-    if (loadUserName !== username) {
-      return false
-    }
     editPost(data.titleEdit, data.contentEdit)
-    console.log(data)
+    toast.success("Post edited!")
+    onRequestClose()
   }
 
   const editPost = async (titleEdit: string, contentEdit: string) => {
@@ -48,9 +45,6 @@ export function ModalEdit({ isOpen, onRequestClose, idPostCard, username }: Moda
       title: titleEdit,
       content: contentEdit,
     })
-    // setTimeout(() => {
-    //   setUpdatedPost(false);
-    // }, 500);
   }
 
   return (
@@ -72,6 +66,8 @@ export function ModalEdit({ isOpen, onRequestClose, idPostCard, username }: Moda
             <ContainerLabel>
               Title
             </ContainerLabel>
+            <ErroMessage>{formState.errors?.titleEdit?.message}</ErroMessage>
+
             <ContainerInput
               placeholder='Hello World'
               height='32px'
@@ -82,6 +78,7 @@ export function ModalEdit({ isOpen, onRequestClose, idPostCard, username }: Moda
             <ContainerLabel>
               Content
             </ContainerLabel>
+            <ErroMessage>{formState.errors?.contentEdit?.message}</ErroMessage>
             <ContainerTextArea
               placeholder="Content Here"
               heightTextArea="74px"
