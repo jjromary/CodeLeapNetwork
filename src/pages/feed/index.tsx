@@ -10,7 +10,7 @@ import Loading from '../../components/loading'
 import { PostCard } from "../../components/postCard"
 import { Title } from "../../components/title"
 import { api } from "../../lib/axios"
-import { Container, ContainerFildsForm, ContainerInput, ContainerLabel, ContainerTextArea, ContentCreatePost, ContentPostList, ErroMessage, Header, Warning } from "./styles"
+import { ButtonBackToTop, Container, ContainerFildsForm, ContainerInput, ContainerLabel, ContainerTextArea, ContentCreatePost, ContentPostList, ErroMessage, Header, Warning } from "./styles"
 
 interface Posts {
   id: number;
@@ -33,11 +33,21 @@ export default function Feed() {
   const [totalPost, setTotalPost] = useState(Number)
   const [isfinalPost, setIsFinalPost] = useState(false)
 
+  const [pageYPosition, setPageYPosition] = useState(0);
+
   const [limitPage, setLimitPage] = useState(10)
   const [isLoading, setIsLoading] = useState(true)
 
   const loadUserName = localStorage.getItem('user')
   const navigate = useNavigate();
+
+  //scroll to top smotthing
+  const btn = document.getElementById('container');
+
+  btn?.addEventListener('click', () => window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  }));
 
   //Infinity scroll
   useEffect(() => {
@@ -116,7 +126,7 @@ export default function Feed() {
   })
 
   return (
-    <Container>
+    <Container id="container">
       {!!loadUserName === true ?
         (<>
           <Header>
@@ -171,8 +181,17 @@ export default function Feed() {
 
               </ContainerFildsForm>
             </ContentCreatePost>
+          </BoxModel>
+          {pageYPosition > 900 &&
+            <ButtonBackToTop
+              // href="#container"
+              id='container'
+            >
+              Back to top!
+            </ButtonBackToTop>
+          }
 
-          </BoxModel><ContentPostList>
+          <ContentPostList>
 
             {posts && posts.map((post) => {
               return (
@@ -187,6 +206,8 @@ export default function Feed() {
             })}
 
           </ContentPostList>
+
+
 
           {isfinalPost ?
             "There are no more posts"
