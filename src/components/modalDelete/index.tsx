@@ -27,6 +27,7 @@ export function ModalDelete({ isOpen, onRequestClose, idPostCard, username }: Mo
       return false
     }
     deletePost()
+    onRequestClose()
     console.log(data)
   }
 

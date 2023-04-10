@@ -26,7 +26,6 @@ Modal.setAppElement('#root')
 export function ModalEdit({ isOpen, onRequestClose, idPostCard, username }: ModalEditProps) {
   const loadUserName = localStorage.getItem('user')
 
-
   const { register, handleSubmit } = useForm<NewPostFormData>({
     resolver: zodResolver(editPostValidationSchema),
     defaultValues: {
@@ -40,6 +39,7 @@ export function ModalEdit({ isOpen, onRequestClose, idPostCard, username }: Moda
       return false
     }
     editPost(data.titleEdit, data.contentEdit)
+    onRequestClose()
     console.log(data)
   }
 
@@ -48,9 +48,6 @@ export function ModalEdit({ isOpen, onRequestClose, idPostCard, username }: Moda
       title: titleEdit,
       content: contentEdit,
     })
-    // setTimeout(() => {
-    //   setUpdatedPost(false);
-    // }, 500);
   }
 
   return (
