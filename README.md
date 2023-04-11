@@ -50,7 +50,7 @@ npm run dev or yarn dev
 ````
 <br />
 
-A aplicação será aberta na porta:3000 - acesse http://localhost:5173
+A aplicação será aberta na porta:5173 - acesse http://localhost:5173
 
 <br />
 
