@@ -47,13 +47,6 @@ export default function Feed() {
 
   window.addEventListener('scroll', getPageYAfterScroll);
 
-  const btn = document.getElementById('container');
-
-  btn?.addEventListener('click', () => window.scrollTo({
-    top: 0,
-    behavior: 'smooth',
-  }));
-
   //Infinity scroll
   useEffect(() => {
     const intersactionObserver = new IntersectionObserver((entries) => {
@@ -189,9 +182,9 @@ export default function Feed() {
           </BoxModel>
           {pageYPosition > 900 &&
             <ButtonBackToTop
-              // href="#container"
-              id='container'
+              href="#container"
             >
+
               Back to top!
             </ButtonBackToTop>
           }
