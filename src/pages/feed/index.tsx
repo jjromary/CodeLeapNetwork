@@ -41,7 +41,12 @@ export default function Feed() {
   const loadUserName = localStorage.getItem('user')
   const navigate = useNavigate();
 
-  //scroll to top smotthing
+  function getPageYAfterScroll() {
+    setPageYPosition(window.scrollY);
+  }
+
+  window.addEventListener('scroll', getPageYAfterScroll);
+
   const btn = document.getElementById('container');
 
   btn?.addEventListener('click', () => window.scrollTo({
